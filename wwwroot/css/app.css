@@ -37,28 +37,28 @@ input.down-arrow {
     margin: auto auto 0px auto;
 }
 input.down-arrow-status-0 {
-    background-image: URL("~/images/Down.png");
+    background-image: URL("../images/Down.png");
 }
 input.down-arrow-status-1 {
-    background-image: URL("~/images/Down-Inner.png");
+    background-image: URL("../images/Down-Inner.png");
 }
 input.down-arrow-status-2 {
-    background-image: URL("~/images/Down-Ringed.png");
+    background-image: URL("../images/Down-Ringed.png");
 }
 input.down-arrow-status-3 {
-    background-image: URL("~/images/Down-Ringed-Inner.png");
+    background-image: URL("../images/Down-Ringed-Inner.png");
 }
 input.down-arrow-status-0:hover {
-    background-image: URL("~/images/Empty-Down.png");
+    background-image: URL("../images/Empty-Down.png");
 }
 input.down-arrow-status-1:hover {
-    background-image: URL("~/images/Empty-Down-Inner.png");
+    background-image: URL("../images/Empty-Down-Inner.png");
 }
 input.down-arrow-status-2:hover {
-    background-image: URL("~/images/Empty-Down-Ringed.png");
+    background-image: URL("../images/Empty-Down-Ringed.png");
 }
 input.down-arrow-status-3:hover {
-    background-image: URL("~/images/Empty-Down-Ringed-Inner.png");
+    background-image: URL("../images/Empty-Down-Ringed-Inner.png");
 }
 div.down-arrow {
     margin: auto auto 5px auto;
@@ -67,28 +67,28 @@ input.right-arrow {
     margin: auto 0px auto auto;
 }
 input.right-arrow-status-0 {
-    background-image: URL("~/images/Right.png");
+    background-image: URL("../images/Right.png");
 }
 input.right-arrow-status-1 {
-    background-image: URL("~/images/Right-Inner.png");
+    background-image: URL("../images/Right-Inner.png");
 }
 input.right-arrow-status-2 {
-    background-image: URL("~/images/Right-Ringed.png");
+    background-image: URL("../images/Right-Ringed.png");
 }
 input.right-arrow-status-3 {
-    background-image: URL("~/images/Right-Ringed-Inner.png");
+    background-image: URL("../images/Right-Ringed-Inner.png");
 }
 input.right-arrow-status-0:hover {
-    background-image: URL("~/images/Empty-Right.png");
+    background-image: URL("../images/Empty-Right.png");
 }
 input.right-arrow-status-1:hover {
-    background-image: URL("~/images/Empty-Right-Inner.png");
+    background-image: URL("../images/Empty-Right-Inner.png");
 }
 input.right-arrow-status-2:hover {
-    background-image: URL("~/images/Empty-Right-Ringed.png");
+    background-image: URL("../images/Empty-Right-Ringed.png");
 }
 input.right-arrow-status-3:hover {
-    background-image: URL("~/images/Empty-Right-Ringed-Inner.png");
+    background-image: URL("../images/Empty-Right-Ringed-Inner.png");
 }
 div.right-arrow {
     margin: auto 5px auto auto;
@@ -97,28 +97,28 @@ input.down-right-arrow {
     margin: auto 0px 0px auto;
 }
 input.down-right-arrow-status-0 {
-    background-image: URL("~/images/Down-Right.png");
+    background-image: URL("../images/Down-Right.png");
 }
 input.down-right-arrow-status-1 {
-    background-image: URL("~/images/Down-Right-Inner.png");
+    background-image: URL("../images/Down-Right-Inner.png");
 }
 input.down-right-arrow-status-2 {
-    background-image: URL("~/images/Down-Right-Ringed.png");
+    background-image: URL("../images/Down-Right-Ringed.png");
 }
 input.down-right-arrow-status-3 {
-    background-image: URL("~/images/Down-Right-Ringed-Inner.png");
+    background-image: URL("../images/Down-Right-Ringed-Inner.png");
 }
 input.down-right-arrow-status-0:hover {
-    background-image: URL("~/images/Empty-Down-Right.png");
+    background-image: URL("../images/Empty-Down-Right.png");
 }
 input.down-right-arrow-status-1:hover {
-    background-image: URL("~/images/Empty-Down-Right-Inner.png");
+    background-image: URL("../images/Empty-Down-Right-Inner.png");
 }
 input.down-right-arrow-status-2:hover {
-    background-image: URL("~/images/Empty-Down-Right-Ringed.png");
+    background-image: URL("../images/Empty-Down-Right-Ringed.png");
 }
 input.down-right-arrow-status-3:hover {
-    background-image: URL("~/images/Empty-Down-Right-Ringed-Inner.png");
+    background-image: URL("../images/Empty-Down-Right-Ringed-Inner.png");
 }
 div.down-right-arrow {
     margin: auto 5px 5px auto;
@@ -127,28 +127,28 @@ input.down-left-arrow {
     margin: auto auto 0px 0px;
 }
 input.down-left-arrow-status-0 {
-    background-image: URL("~/images/Down-Left.png");
+    background-image: URL("../images/Down-Left.png");
 }
 input.down-left-arrow-status-1 {
-    background-image: URL("~/images/Down-Left-Inner.png");
+    background-image: URL("../images/Down-Left-Inner.png");
 }
 input.down-left-arrow-status-2 {
-    background-image: URL("~/images/Down-Left-Ringed.png");
+    background-image: URL("../images/Down-Left-Ringed.png");
 }
 input.down-left-arrow-status-3 {
-    background-image: URL("~/images/Down-Left-Ringed-Inner.png");
+    background-image: URL("../images/Down-Left-Ringed-Inner.png");
 }
 input.down-left-arrow-status-0:hover {
-    background-image: URL("~/images/Empty-Down-Left.png");
+    background-image: URL("../images/Empty-Down-Left.png");
 }
 input.down-left-arrow-status-1:hover {
-    background-image: URL("~/images/Empty-Down-Left-Inner.png");
+    background-image: URL("../images/Empty-Down-Left-Inner.png");
 }
 input.down-left-arrow-status-2:hover {
-    background-image: URL("~/images/Empty-Down-Left-Ringed.png");
+    background-image: URL("../images/Empty-Down-Left-Ringed.png");
 }
 input.down-left-arrow-status-3:hover {
-    background-image: URL("~/images/Empty-Down-Left-Ringed-Inner.png");
+    background-image: URL("../images/Empty-Down-Left-Ringed-Inner.png");
 }
 div.down-left-arrow {
     margin: auto auto 5px 5px;
@@ -192,22 +192,22 @@ select.selections {
     outline-style: none;
 }
 select.selections-status-0 {
-    background-image: URL("~/images/Light-Filled.png");
+    background-image: URL("../images/Light-Filled.png");
 }
 select.selections-status-1 {
-    background-image: URL("~/images/Dark-Filled.png");
+    background-image: URL("../images/Dark-Filled.png");
 }
 select.selections-status-2 {
-    background-image: URL("~/images/Light-Filled-Ringed.png");
+    background-image: URL("../images/Light-Filled-Ringed.png");
 }
 select.selections-status-3 {
-    background-image: URL("~/images/Dark-Filled-Ringed.png");
+    background-image: URL("../images/Dark-Filled-Ringed.png");
 }
 select.selections-status-0:hover, select.selections-status-1:hover {
-    background-image: URL("~/images/Empty.png");
+    background-image: URL("../images/Empty.png");
 }
 select.selections-status-2:hover, select.selections-status-3:hover {
-    background-image: URL("~/images/Empty-Ringed.png");
+    background-image: URL("../images/Empty-Ringed.png");
 }
 option.selections {
     color: red;
