@@ -378,7 +378,8 @@ hr {
     border-color: darkgoldenrod;
 }
 
-.content {
+.reset {
+    font-size: 40px;
 }
 
 .validation-message {
