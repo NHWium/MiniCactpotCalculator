@@ -1,23 +1,34 @@
-name: Deploy to GitHub Pages
+name: DeployToGitHubPages
+env:
+  PUBLISH_DIR: Release/wwwroot
 
-# Run workflow on every push to the master branch
+# Controls when the action will run
 on:
   push:
     branches: [ master ]
-    
+
 jobs:
-  deploy-to-github-pages:
-    # use ubuntu-latest image to run steps on
+  build:
     runs-on: ubuntu-latest
     steps:
-    # uses GitHub's checkout action to checkout code form the master branch
     - uses: actions/checkout@v2
-    # sets up .NET Core SDK 3.1
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+
+    - name: Publish app
+      run: dotnet publish -c Release
+
+    - name: Rewrite base href
+      uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
-        dotnet-version: 5.0.402
-    
-    # publishes Blazor project to the release-folder
-    - name: Publish .NET Core Project
-      run: dotnet publish MiniCactpot.csproj -c Release -o release --nologo
+        html_path: ${{ env.PUBLISH_DIR }}/index.html
+        base_href: /MiniCactpotCalculator/
+
+    - name: GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v1.5.1
+      with:
+        target_branch: gh-pages
+        build_dir: ${{ env.PUBLISH_DIR }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+          
