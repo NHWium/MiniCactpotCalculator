@@ -3,7 +3,52 @@
     background-color: dimgrey;
     color: white;
 }
-
+body::after{
+   position: absolute; 
+   width:0; 
+   height:0; 
+   overflow:hidden; 
+   z-index:-1;   
+   content:                                                             
+        url("../images/Light-Filled.png") 
+        url("../images/Light-Filled-Ringed.png") 
+        url("../images/Dark-Filled.png") 
+        url("../images/Dark-Filled-Ringed.png") 
+        url("../images/Empty.png") 
+        url("../images/Empty-Ringed.png") 
+        url("../images/Down.png") 
+        url("../images/Down-Ringed.png") 
+        url("../images/Down-Inner.png") 
+        url("../images/Down-Ringed-Inner.png") 
+        url("../images/Empty-Down.png") 
+        url("../images/Empty-Down-Inner.png") 
+        url("../images/Empty-Down-Ringed.png") 
+        url("../images/Empty-Down-Ringed-Inner.png") 
+        url("../images/Right.png") 
+        url("../images/Right-Ringed.png") 
+        url("../images/Right-Inner.png") 
+        url("../images/Right-Ringed-Inner.png") 
+        url("../images/Empty-Right.png") 
+        url("../images/Empty-Right-Inner.png") 
+        url("../images/Empty-Right-Ringed.png") 
+        url("../images/Empty-Right-Ringed-Inner.png") 
+        url("../images/Down-Right.png") 
+        url("../images/Down-Right-Ringed.png") 
+        url("../images/Down-Right-Inner.png") 
+        url("../images/Down-Right-Ringed-Inner.png") 
+        url("../images/Empty-Down-Right.png") 
+        url("../images/Empty-Down-Right-Inner.png") 
+        url("../images/Empty-Down-Right-Ringed.png") 
+        url("../images/Empty-Down-Right-Ringed-Inner.png") 
+        url("../images/Down-Left.png") 
+        url("../images/Down-Left-Ringed.png") 
+        url("../images/Down-Left-Inner.png") 
+        url("../images/Down-Left-Ringed-Inner.png") 
+        url("../images/Empty-Down-Left.png") 
+        url("../images/Empty-Down-Left-Inner.png") 
+        url("../images/Empty-Down-Left-Ringed.png") 
+        url("../images/Empty-Down-Left-Ringed-Inner.png") 
+}
 a, .btn-link {
     color: lightgray;
 }
