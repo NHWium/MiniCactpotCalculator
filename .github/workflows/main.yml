@@ -1,6 +1,6 @@
 name: DeployToGitHubPages
 env:
-  PUBLISH_DIR: bin/Release/5.0/browser-wasm/publish/wwwroot
+  PUBLISH_DIR: Release/wwwroot
 
 # Controls when the action will run
 on:
