@@ -1,0 +1,121 @@
+﻿<div class="headline">
+    <h1 class="headline">Mini Cactpot Calculator</h1>
+</div>
+<div id="main-grid" class="grid-container">
+    <div id="grid-S-S" class="grid-item down-right-arrow">
+        <input type="button" @onclick="(e => UpdateActiveSelection(Diagonal[0]))" class="arrow down-right-arrow down-right-arrow-status-@Diagonal[0].GetStatus()" />
+    </div>
+    <div id="grid-0-S" class="grid-item down-arrow">
+        <input type="button" @onclick="(e => UpdateActiveSelection(Row[0]))" class="arrow down-arrow down-arrow-status-@Row[0].GetStatus()" />
+    </div>
+    <div id="grid-1-S" class="grid-item down-arrow">
+        <input type="button" @onclick="(e => UpdateActiveSelection(Row[1]))" class="arrow down-arrow down-arrow-status-@Row[1].GetStatus()" />
+    </div>
+    <div id="grid-2-S" class="grid-item down-arrow">
+        <input type="button" @onclick="(e => UpdateActiveSelection(Row[2]))" class="arrow down-arrow down-arrow-status-@Row[2].GetStatus()" />
+    </div>
+    <div id="grid-E-S" class="grid-item down-left-arrow">
+        <input type="button" @onclick="(e => UpdateActiveSelection(Diagonal[1]))" class="arrow down-left-arrow down-left-arrow-status-@Diagonal[1].GetStatus()" />
+    </div>
+    @for (int y = 0; y < 3; y++)
+    {
+        int row = y;
+        <div id="grid-S-@y" class="grid-item right-arrow">
+            <input type="button" @onclick="(e => UpdateActiveSelection(Column[row]))" class="arrow right-arrow right-arrow-status-@Column[row].GetStatus()" />
+        </div>
+        @for (int x = 0; x < 3; x++)
+        {
+            int column = x;
+            <div id="grid-@x-@y" class="grid-item">
+                <select name="number-@x-@y" class="selections selections-status-@GridStatus[x,y]" @onchange="@(e => Selected(column, row, e.Value.ToString()))">
+                    @if (Grid[x, y] == 0)
+                    {
+                        <option value="0" class="hidden-selections" selected="selected" disabled="disabled"> </option>
+                    }
+                    else
+                    {
+                        <option value="0" class="selections">-</option>
+                    }
+                    @for (int i = 1; i <= 9; i++)
+                    {
+                        @if (Grid[x, y] == i)
+                        {
+                            <option value="@i" class="selections" selected="selected">@i</option>
+                        }
+                        else if (!Used(i) && (SelectionCount < 4 || Grid[x, y] != 0))
+                        {
+                            <option value="@i" class="selections">@i</option>
+                        }
+                    }
+                    @if (Grid[x, y] == 0 && SelectionCount == 4)
+                    {
+                        <option value="10" class="disabled-selections" disabled="disabled">Max 4</option>
+                    }
+                </select>
+            </div>
+        }
+        <div id="grid-E-@y" class="grid-item results-right">
+            <p class="results results-right results-status-@Column[y].GetStatus()">@Column[y].GetResult()</p>
+        </div>
+    }
+    <div id="grid-S-E" class="grid-item results-bottom-left">
+        <p class="results results-bottom-left results-status-@Diagonal[1].GetStatus()">@Diagonal[1].GetResult()</p>
+    </div>
+    @for (int x = 0; x < 3; x++)
+    {
+        <div id="grid-@x-E" class="grid-item results-bottom">
+            <p class="results results-bottom results-status-@Row[x].GetStatus()">@Row[x].GetResult()</p>
+        </div>
+    }
+    <div id="grid-E-E" class="grid-item results-bottom-right">
+        <p class="results results-bottom-right results-status-@Diagonal[0].GetStatus()">@Diagonal[0].GetResult()</p>
+    </div>
+</div>
+
+<div class="headline">
+    <h2 class="headline">Payout</h2>
+</div>
+<div class="payout-grid">
+    @for (int i = 6; i < 25; i++)
+    {
+        int sum = i;
+        @if (sum == 6 || sum == 16)
+        {
+            <div class="sub-payout-grid">
+                <div class="payout-item payout-headline">
+                    <h3>Sum:</h3>
+                </div>
+                <div class="payout-item payout-headline-number">
+                    <h3>MGP:&nbsp;</h3>
+                </div>
+                <div class="payout-item payout-headline">
+                    <h3>Chance:</h3>
+                </div>
+            </div>
+        }
+        <div class="sub-payout-grid">
+            <div class="payout-item">
+                <p class="payout-sum">@sum:</p>
+            </div>
+            <div class="payout-item">
+                <p>
+                    <input type="number" class="payout-number" @bind="Payout[sum]" />
+                </p>
+            </div>
+            <div class="payout-item">
+                <p>@Math.Round((double)PayoutChance[sum], 2)%</p>
+            </div>
+        </div>
+    }
+    <div class="sub-payout-grid">
+        <div class="payout-item-final">
+            <p>@Math.Round(PayoutChance[0]) combinations.</p>
+        </div>
+    </div>
+</div>
+<div class="headline">
+    <hr />
+    <input type="reset" @onclick="ResetOrInitialize" class="reset" />
+    <hr />
+    <p>This calculator will suggest the "best" three tiles to select, based on each possible payout * the chance of it being paid out.</p>
+</div>
