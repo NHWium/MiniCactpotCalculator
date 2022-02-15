@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Release\**" />
+    <Content Remove="Release\**" />
+    <EmbeddedResource Remove="Release\**" />
+    <None Remove="Release\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_WebToolingArtifacts Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
 
@@ -12,10 +19,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.11" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Release\" />
   </ItemGroup>
 
 </Project>
