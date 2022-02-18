@@ -1,54 +1,14 @@
-﻿html, body {
+﻿:root {
+    --arrow-size: 75px;
+    --circle-size: min(175px, 20vw);
+}
+
+html, body {
     font-family: 'Open Sans', sans-serif;
     background-color: dimgrey;
     color: white;
 }
-body::after{
-   position: absolute; 
-   width:0; 
-   height:0; 
-   overflow:hidden; 
-   z-index:-1;   
-   content:                                                             
-        url("../images/Light-Filled.png") 
-        url("../images/Light-Filled-Ringed.png") 
-        url("../images/Dark-Filled.png") 
-        url("../images/Dark-Filled-Ringed.png") 
-        url("../images/Empty.png") 
-        url("../images/Empty-Ringed.png") 
-        url("../images/Down.png") 
-        url("../images/Down-Ringed.png") 
-        url("../images/Down-Inner.png") 
-        url("../images/Down-Ringed-Inner.png") 
-        url("../images/Empty-Down.png") 
-        url("../images/Empty-Down-Inner.png") 
-        url("../images/Empty-Down-Ringed.png") 
-        url("../images/Empty-Down-Ringed-Inner.png") 
-        url("../images/Right.png") 
-        url("../images/Right-Ringed.png") 
-        url("../images/Right-Inner.png") 
-        url("../images/Right-Ringed-Inner.png") 
-        url("../images/Empty-Right.png") 
-        url("../images/Empty-Right-Inner.png") 
-        url("../images/Empty-Right-Ringed.png") 
-        url("../images/Empty-Right-Ringed-Inner.png") 
-        url("../images/Down-Right.png") 
-        url("../images/Down-Right-Ringed.png") 
-        url("../images/Down-Right-Inner.png") 
-        url("../images/Down-Right-Ringed-Inner.png") 
-        url("../images/Empty-Down-Right.png") 
-        url("../images/Empty-Down-Right-Inner.png") 
-        url("../images/Empty-Down-Right-Ringed.png") 
-        url("../images/Empty-Down-Right-Ringed-Inner.png") 
-        url("../images/Down-Left.png") 
-        url("../images/Down-Left-Ringed.png") 
-        url("../images/Down-Left-Inner.png") 
-        url("../images/Down-Left-Ringed-Inner.png") 
-        url("../images/Empty-Down-Left.png") 
-        url("../images/Empty-Down-Left-Inner.png") 
-        url("../images/Empty-Down-Left-Ringed.png") 
-        url("../images/Empty-Down-Left-Ringed-Inner.png") 
-}
+
 a, .btn-link {
     color: lightgray;
 }
@@ -70,145 +30,210 @@ input {
     color: white;
 }
 input.arrow {
-    height: 75px;
-    width: 75px;
+    height: var(--arrow-size);
+    width: var(--arrow-size);
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: calc(var(--arrow-size) * 8) calc(var(--arrow-size) * 4);
+    border-style: none;
+    padding: 0px;
 }
 input.arrow:active {
     background-blend-mode: overlay;
 }
 input.down-arrow {
-    margin: auto auto 0px auto;
+    background-image: URL("../images/CactpotArrows.png");
+    margin: auto auto 5px auto;
 }
 input.down-arrow-status-0 {
-    background-image: URL("../images/Down.png");
+    background-position-x: calc(var(--arrow-size) * 0);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-1 {
-    background-image: URL("../images/Down-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -4);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-2 {
-    background-image: URL("../images/Down-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -2);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-3 {
-    background-image: URL("../images/Down-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -6);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-0:hover {
-    background-image: URL("../images/Empty-Down.png");
+    background-position-x: calc(var(--arrow-size) * -1);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-1:hover {
-    background-image: URL("../images/Empty-Down-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -5);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-2:hover {
-    background-image: URL("../images/Empty-Down-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -3);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 input.down-arrow-status-3:hover {
-    background-image: URL("../images/Empty-Down-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -7);
+    background-position-y: calc(var(--arrow-size) * -1);
 }
 div.down-arrow {
     margin: auto auto 5px auto;
+    z-index: 10;
 }
 input.right-arrow {
+    background-image: URL("../images/CactpotArrows.png");
     margin: auto 0px auto auto;
 }
 input.right-arrow-status-0 {
-    background-image: URL("../images/Right.png");
+    background-position-x: calc(var(--arrow-size) * 0);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-1 {
-    background-image: URL("../images/Right-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -4);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-2 {
-    background-image: URL("../images/Right-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -2);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-3 {
-    background-image: URL("../images/Right-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -6);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-0:hover {
-    background-image: URL("../images/Empty-Right.png");
+    background-position-x: calc(var(--arrow-size) * -1);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-1:hover {
-    background-image: URL("../images/Empty-Right-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -5);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-2:hover {
-    background-image: URL("../images/Empty-Right-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -3);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
+
 input.right-arrow-status-3:hover {
-    background-image: URL("../images/Empty-Right-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -7);
+    background-position-y: calc(var(--arrow-size) * 0);
 }
 div.right-arrow {
     margin: auto 5px auto auto;
+    z-index: 10;
 }
 input.down-right-arrow {
+    background-image: URL("../images/CactpotArrows.png");
     margin: auto 0px 0px auto;
 }
 input.down-right-arrow-status-0 {
-    background-image: URL("../images/Down-Right.png");
+    background-position-x: calc(var(--arrow-size) * 0);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-1 {
-    background-image: URL("../images/Down-Right-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -4);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-2 {
-    background-image: URL("../images/Down-Right-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -2);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-3 {
-    background-image: URL("../images/Down-Right-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -6);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-0:hover {
-    background-image: URL("../images/Empty-Down-Right.png");
+    background-position-x: calc(var(--arrow-size) * -1);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-1:hover {
-    background-image: URL("../images/Empty-Down-Right-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -5);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-2:hover {
-    background-image: URL("../images/Empty-Down-Right-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -3);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
+
 input.down-right-arrow-status-3:hover {
-    background-image: URL("../images/Empty-Down-Right-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -7);
+    background-position-y: calc(var(--arrow-size) * -2);
 }
 div.down-right-arrow {
     margin: auto 5px 5px auto;
+    z-index: 10;
 }
 input.down-left-arrow {
+    background-image: URL("../images/CactpotArrows.png");
     margin: auto auto 0px 0px;
 }
 input.down-left-arrow-status-0 {
-    background-image: URL("../images/Down-Left.png");
+    background-position-x: calc(var(--arrow-size) * 0);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-1 {
-    background-image: URL("../images/Down-Left-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -4);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-2 {
-    background-image: URL("../images/Down-Left-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -2);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-3 {
-    background-image: URL("../images/Down-Left-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -6);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-0:hover {
-    background-image: URL("../images/Empty-Down-Left.png");
+    background-position-x: calc(var(--arrow-size) * -1);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-1:hover {
-    background-image: URL("../images/Empty-Down-Left-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -5);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-2:hover {
-    background-image: URL("../images/Empty-Down-Left-Ringed.png");
+    background-position-x: calc(var(--arrow-size) * -3);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
+
 input.down-left-arrow-status-3:hover {
-    background-image: URL("../images/Empty-Down-Left-Ringed-Inner.png");
+    background-position-x: calc(var(--arrow-size) * -7);
+    background-position-y: calc(var(--arrow-size) * -3);
 }
 div.down-left-arrow {
     margin: auto auto 5px 5px;
+    z-index: 10;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 140px);
-    grid-gap: 5px;
+    grid-template-columns: 1fr var(--circle-size) var(--circle-size) var(--circle-size) 1fr;
+    grid-template-rows: 1fr var(--circle-size) var(--circle-size) var(--circle-size) min-content;
+    grid-gap: 0px;
     align-items: center;
-    max-width: 1750px;
+    max-width: 1500px;
     text-align: center;
-    width: 720px;
+    width: calc(var(--circle-size) * 5);
     margin: 0px auto 0px auto;
 }
+
 .grid-item {
     display: inline;
     text-align: center;
@@ -221,14 +246,15 @@ div.down-left-arrow {
     overflow-x: hidden;
     max-width: 100%;
     color: black;
-    height: 140px;
-    width: 140px;
+    height: var(--circle-size);
+    width: var(--circle-size);
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 select.selections {
-    font-size: 100px;
-    text-indent: 5px;
-    background-position: center;
-    background-size: contain;
+    font-size: calc(var(--circle-size) * 0.66);
+    background-image: URL("../images/CactpotCircles.png");
+    background-size: calc(var(--circle-size) * 4) calc(var(--circle-size) * 3);
     background-repeat: no-repeat;
     background-color: dimgrey;
     color: red;
@@ -237,22 +263,28 @@ select.selections {
     outline-style: none;
 }
 select.selections-status-0 {
-    background-image: URL("../images/Light-Filled.png");
+    background-position-x: calc(var(--circle-size) * 0);
+    background-position-y: calc(var(--circle-size) * 0);
 }
 select.selections-status-1 {
-    background-image: URL("../images/Dark-Filled.png");
+    background-position-x: calc(var(--circle-size) * 0);
+    background-position-y: calc(var(--circle-size) * -1);
 }
 select.selections-status-2 {
-    background-image: URL("../images/Light-Filled-Ringed.png");
+    background-position-x: calc(var(--circle-size) * -1);
+    background-position-y: calc(var(--circle-size) * 0);
 }
 select.selections-status-3 {
-    background-image: URL("../images/Dark-Filled-Ringed.png");
+    background-position-x: calc(var(--circle-size) * -1);
+    background-position-y: calc(var(--circle-size) * -1);
 }
 select.selections-status-0:hover, select.selections-status-1:hover {
-    background-image: URL("../images/Empty.png");
+    background-position-x: calc(var(--circle-size) * 0);
+    background-position-y: calc(var(--circle-size) * -2);
 }
 select.selections-status-2:hover, select.selections-status-3:hover {
-    background-image: URL("../images/Empty-Ringed.png");
+    background-position-x: calc(var(--circle-size) * -1);
+    background-position-y: calc(var(--circle-size) * -2);
 }
 option.selections {
     color: red;
@@ -280,22 +312,22 @@ option.selections {
     text-align: left;
 }
 div.results-right {
-    margin: auto auto auto 5px;
+    margin: auto auto auto 10px;
 }
 div.results-bottom-right {
-    margin: 5px auto auto 5px;
+    margin: 0px auto auto 0px;
 }
 .results-bottom {
     text-align: center;
 }
 div.results-bottom {
-    margin: 5px auto auto auto;
+    margin: 0px auto auto auto;
 }
 .results-bottom-left {
     text-align: right;
 }
 div.results-bottom-left {
-    margin: 5px 5px auto auto;
+    margin: 0px 0px auto auto;
 }
 .results-status-0 {
     color: white;
@@ -309,21 +341,29 @@ div.results-bottom-left {
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: repeat(2, auto);
-    grid-template-rows: repeat(11, max-content);
+    grid-template-rows: repeat(11, auto);
     grid-column-gap: 1em;
     grid-row-gap: 0px;
     align-items: center;
-    max-width: 1000px;
+    max-width: 640px;
     text-align: center;
     margin: auto;
 }
+@media screen and (max-width: 640px) {
+    .payout-grid {
+        grid-template-columns: auto;
+        grid-template-rows: repeat(22, auto);
+        max-width: 320px;
+    }
+}
 .sub-payout-grid {
     display: inline-grid;
-    grid-template-columns: minmax(60px, 15%) minmax(80px, 20%) minmax(20px, 75%);
-    max-height: 45px;
+    grid-template-columns: 5em 5em 10em;
+    grid-row-gap: 0px;
     border-top-style: solid;
     border-top-width: thin;
     border-top-color: darkgoldenrod;
+    max-height: 45px;
 }
 .sub-payout-grid:hover, .sub-payout-grid:focus {
     border-top-style: solid;
@@ -372,16 +412,28 @@ div.results-bottom-left {
 }
 
 hr {
-    max-width: 1000px;
+    max-width: 640px;
     border-style: solid;
     border-width: thin;
     border-color: darkgoldenrod;
 }
 
 .reset {
+    color: lightgoldenrod;
     font-size: 30px;
     text-align: center;
     font-variant-caps: small-caps;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border-style: none;
+    outline-style: none;
+}
+.reset:hover {
+    color: gold;
+}
+.reset:active {
+    color: darkgoldenrod;
 }
 
 .validation-message {

@@ -71,8 +71,8 @@
         <p class="results results-bottom-right results-status-@Diagonal[0].GetStatus()">@Diagonal[0].GetResult()</p>
     </div>
 </div>
-
 <div class="headline">
+    <input type="reset" @onclick="ResetOrInitialize" class="reset" />
     <h2 class="headline">Payout</h2>
 </div>
 <div class="payout-grid">
@@ -115,7 +115,6 @@
 </div>
 <div class="headline">
     <hr />
-    <input type="reset" @onclick="ResetOrInitialize" class="reset" />
-    <hr />
     <p>This calculator will suggest the "best" three tiles to select, based on each possible payout times the chance of it being paid out.</p>
+    <p>Code at <a href="https://github.com/NHWium/MiniCactpotCalculator">Github</a></p>
 </div>
