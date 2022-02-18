@@ -278,12 +278,36 @@ select.selections-status-3 {
     background-position-x: calc(var(--circle-size) * -1);
     background-position-y: calc(var(--circle-size) * -1);
 }
+select.selections-status-4 {
+    background-position-x: calc(var(--circle-size) * -2);
+    background-position-y: calc(var(--circle-size) * 0);
+}
+select.selections-status-5 {
+    background-position-x: calc(var(--circle-size) * -2);
+    background-position-y: calc(var(--circle-size) * -1);
+}
+select.selections-status-6 {
+    background-position-x: calc(var(--circle-size) * -3);
+    background-position-y: calc(var(--circle-size) * 0);
+}
+select.selections-status-3 {
+    background-position-x: calc(var(--circle-size) * -3);
+    background-position-y: calc(var(--circle-size) * -1);
+}
 select.selections-status-0:hover, select.selections-status-1:hover {
     background-position-x: calc(var(--circle-size) * 0);
     background-position-y: calc(var(--circle-size) * -2);
 }
+select.selections-status-4:hover, select.selections-status-5:hover {
+    background-position-x: calc(var(--circle-size) * -2);
+    background-position-y: calc(var(--circle-size) * -2);
+}
 select.selections-status-2:hover, select.selections-status-3:hover {
     background-position-x: calc(var(--circle-size) * -1);
+    background-position-y: calc(var(--circle-size) * -2);
+}
+select.selections-status-6:hover, select.selections-status-7:hover {
+    background-position-x: calc(var(--circle-size) * -3);
     background-position-y: calc(var(--circle-size) * -2);
 }
 option.selections {

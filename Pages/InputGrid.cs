@@ -16,9 +16,11 @@ namespace MiniCactpot.Pages
         Selection[] Column;
         Selection[] Diagonal;
         int[,] GridStatus;
+        List<(int, int)> Hint;
         const int NORMAL = 0;
         const int SUGGESTED = 1;
         const int ACTIVE = 2;
+        const int HINTED = 4;
 
         public InputGrid()
         {
@@ -75,6 +77,7 @@ namespace MiniCactpot.Pages
             };
             FindUsed();
             CalculateAllPayouts();
+            GetHint();
         }
 
         void Selected(int x, int y, string value)
@@ -83,6 +86,7 @@ namespace MiniCactpot.Pages
             if (!parsed) Grid[x, y] = 0;
             FindUsed();
             CalculateAllPayouts();
+            GetHint();
         }
 
         void FindUsed()
@@ -214,6 +218,37 @@ namespace MiniCactpot.Pages
             return sums;
         }
 
+        int GetStatus(int x, int y) {
+            if (Hint.Contains((x, y))) return (GridStatus[x, y] + HINTED);
+            return GridStatus[x, y];
+        }
+
+        void GetHint() {
+            Hint = new List<(int, int)>();
+            if (AvailableNumbers.Count < 9 && AvailableNumbers.Count > 5) {
+                if (Grid[1, 1] == 0) Hint.Add((1, 1));
+                else {
+                    if (AvailableNumbers.Count > 6 && Grid[0, 0] == 0 && Grid[2, 2] == 0 && Grid[2, 0] == 0 && Grid[0, 2] == 0) {
+                        if (Grid[1, 0] == 0 && Grid[0, 1] == 0) Hint.Add((0, 0)); // top left
+                        if (Grid[1, 0] == 0 && Grid[2, 1] == 0) Hint.Add((2, 0)); // top right
+                        if (Grid[1, 2] == 0 && Grid[0, 1] == 0) Hint.Add((0, 2)); // bottom left
+                        if (Grid[1, 2] == 0 && Grid[2, 1] == 0) Hint.Add((2, 2)); // bottom right
+                    }
+                    else if (AvailableNumbers.Count > 6 && Grid[1, 0] == 0 && Grid[1, 2] == 0 && Grid[0, 1] == 0 && Grid[2, 1] == 0)
+                    {
+                        if (Grid[0, 0] == 0 && Grid[2, 0] == 0) Hint.Add((1, 0)); // top
+                        if (Grid[0, 2] == 0 && Grid[2, 2] == 0) Hint.Add((1, 2)); // bottom
+                        if (Grid[0, 0] == 0 && Grid[0, 2] == 0) Hint.Add((0, 1)); // left
+                        if (Grid[2, 0] == 0 && Grid[2, 2] == 0) Hint.Add((2, 1)); // right
+                    }
+                    if (AvailableNumbers.Count == 6)
+                    {
+                        // What is the best here
+                    }
+                }
+            }
+        }
+
         class Selection 
         {
             public InputGrid InputGrid;
@@ -283,7 +318,7 @@ namespace MiniCactpot.Pages
                 SecondStatus |= status;
                 ThirdStatus |= status;
             }
-            public int GetStatus()
+            public int GetStatus(int x = -1, int y = -1)
             {
                 int status = InputGrid.NORMAL;
                 if (Suggested) status += InputGrid.SUGGESTED;

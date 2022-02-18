@@ -27,7 +27,7 @@
         {
             int column = x;
             <div id="grid-@x-@y" class="grid-item">
-                <select name="number-@x-@y" class="selections selections-status-@GridStatus[x,y]" @onchange="@(e => Selected(column, row, e.Value.ToString()))">
+                <select name="number-@x-@y" class="selections selections-status-@GetStatus(x,y)" @onchange="@(e => Selected(column, row, e.Value.ToString()))">
                     @if (Grid[x, y] == 0)
                     {
                         <option value="0" class="hidden-selections" selected="selected" disabled="disabled"> </option>
