@@ -1,5 +1,5 @@
 ﻿:root {
-    --arrow-size: 75px;
+    --arrow-size: min(75px, 12vw);
     --circle-size: min(175px, 20vw);
 }
 
