@@ -3,25 +3,25 @@
 </div>
 <div id="main-grid" class="grid-container">
     <div id="grid-S-S" class="grid-item down-right-arrow">
-        <input type="button" @onclick="(e => UpdateActiveSelection(Diagonal[0]))" class="arrow down-right-arrow down-right-arrow-status-@Diagonal[0].GetStatus()" />
+        <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Diagonal", 0)))' class="arrow down-right-arrow down-right-arrow-status-@GetSelection("Diagonal", 0).GetStatus()" />
     </div>
     <div id="grid-0-S" class="grid-item down-arrow">
-        <input type="button" @onclick="(e => UpdateActiveSelection(Row[0]))" class="arrow down-arrow down-arrow-status-@Row[0].GetStatus()" />
+        <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Column", 0)))' class="arrow down-arrow down-arrow-status-@GetSelection("Column", 0).GetStatus()" />
     </div>
     <div id="grid-1-S" class="grid-item down-arrow">
-        <input type="button" @onclick="(e => UpdateActiveSelection(Row[1]))" class="arrow down-arrow down-arrow-status-@Row[1].GetStatus()" />
+        <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Column", 1)))' class="arrow down-arrow down-arrow-status-@GetSelection("Column", 1).GetStatus()" />
     </div>
     <div id="grid-2-S" class="grid-item down-arrow">
-        <input type="button" @onclick="(e => UpdateActiveSelection(Row[2]))" class="arrow down-arrow down-arrow-status-@Row[2].GetStatus()" />
+        <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Column", 2)))' class="arrow down-arrow down-arrow-status-@GetSelection("Column", 2).GetStatus()" />
     </div>
     <div id="grid-E-S" class="grid-item down-left-arrow">
-        <input type="button" @onclick="(e => UpdateActiveSelection(Diagonal[1]))" class="arrow down-left-arrow down-left-arrow-status-@Diagonal[1].GetStatus()" />
+        <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Diagonal", 1)))' class="arrow down-left-arrow down-left-arrow-status-@GetSelection("Diagonal", 1).GetStatus()" />
     </div>
     @for (int y = 0; y < 3; y++)
     {
         int row = y;
         <div id="grid-S-@y" class="grid-item right-arrow">
-            <input type="button" @onclick="(e => UpdateActiveSelection(Column[row]))" class="arrow right-arrow right-arrow-status-@Column[row].GetStatus()" />
+            <input type="button" @onclick='(e => UpdateActiveSelection(GetSelection("Row", row)))' class="arrow right-arrow right-arrow-status-@GetSelection("Row", row).GetStatus()" />
         </div>
         @for (int x = 0; x < 3; x++)
         {
@@ -55,20 +55,20 @@
             </div>
         }
         <div id="grid-E-@y" class="grid-item results-right">
-            <p class="results results-right results-status-@Column[y].GetStatus()">@Column[y].GetResult()</p>
+            <p class="results results-right results-status-@GetSelection("Row", y).GetStatus()">@GetSelection("Row", y).GetResult()</p>
         </div>
     }
     <div id="grid-S-E" class="grid-item results-bottom-left">
-        <p class="results results-bottom-left results-status-@Diagonal[1].GetStatus()">@Diagonal[1].GetResult()</p>
+        <p class="results results-bottom-left results-status-@GetSelection("Diagonal", 1).GetStatus()">@GetSelection("Diagonal", 1).GetResult()</p>
     </div>
     @for (int x = 0; x < 3; x++)
     {
         <div id="grid-@x-E" class="grid-item results-bottom">
-            <p class="results results-bottom results-status-@Row[x].GetStatus()">@Row[x].GetResult()</p>
+            <p class="results results-bottom results-status-@GetSelection("Column", x).GetStatus()">@GetSelection("Column", x).GetResult()</p>
         </div>
     }
     <div id="grid-E-E" class="grid-item results-bottom-right">
-        <p class="results results-bottom-right results-status-@Diagonal[0].GetStatus()">@Diagonal[0].GetResult()</p>
+        <p class="results results-bottom-right results-status-@GetSelection("Diagonal", 0).GetStatus()">@GetSelection("Diagonal", 0).GetResult()</p>
     </div>
 </div>
 <div class="headline">

@@ -12,9 +12,7 @@ namespace MiniCactpot.Pages
         int[] Payout;
         double[] PayoutChance;
         List<int> AvailableNumbers;
-        Selection[] Row;
-        Selection[] Column;
-        Selection[] Diagonal;
+        List<Selection> Selections;
         int[,] GridStatus;
         List<(int, int)> Hint;
         const int NORMAL = 0;
@@ -56,19 +54,16 @@ namespace MiniCactpot.Pages
                 3600    //24
             };
             PayoutChance = new double[25];
-            Row = new Selection[3] {
-                new Selection(this, (0, 0), (0, 1), (0, 2), "Row0"),
-                new Selection(this, (1, 0), (1, 1), (1, 2), "Row1"),
-                new Selection(this, (2, 0), (2, 1), (2, 2), "Row2")
-            };
-            Column = new Selection[3] {
-                new Selection(this, (0, 0), (1, 0), (2, 0), "Column0"),
-                new Selection(this, (0, 1), (1, 1), (2, 1), "Column1"),
-                new Selection(this, (0, 2), (1, 2), (2, 2), "Column2")
-            };
-            Diagonal = new Selection[2] {
-                new Selection(this, (0, 0), (1, 1), (2, 2), "Diagonal0"),
-                new Selection(this, (2, 0), (1, 1), (0, 2), "Diagonal1")
+            Selections = new List<Selection>
+            {
+                { new Selection(this, "Column", 0, (0, 0), (0, 1), (0, 2)) },
+                { new Selection(this, "Column", 1, (1, 0), (1, 1), (1, 2)) },
+                { new Selection(this, "Column", 2, (2, 0), (2, 1), (2, 2)) },
+                { new Selection(this, "Row", 0, (0, 0), (1, 0), (2, 0)) },
+                { new Selection(this, "Row", 1, (0, 1), (1, 1), (2, 1)) },
+                { new Selection(this, "Row", 2, (0, 2), (1, 2), (2, 2)) },
+                { new Selection(this, "Diagonal", 0, (0, 0), (1, 1), (2, 2)) },
+                { new Selection(this, "Diagonal", 1, (2, 0), (1, 1), (0, 2)) }
             };
             GridStatus = new int[3, 3] {
                 { NORMAL, NORMAL, NORMAL },
@@ -78,6 +73,10 @@ namespace MiniCactpot.Pages
             FindUsed();
             CalculateAllPayouts();
             GetHint();
+        }
+
+        Selection GetSelection(string name, int location) {
+            return Selections.Find((x => x.Name == name && x.Location == location));
         }
 
         void Selected(int x, int y, string value)
@@ -122,22 +121,14 @@ namespace MiniCactpot.Pages
 
         void CalculateAllPayouts()
         {
-            List<Selection> scores = new();
-            scores.Add(Diagonal[0]);
-            scores.Add(Diagonal[1]);
-            scores.Add(Row[0]);
-            scores.Add(Row[1]);
-            scores.Add(Row[2]);
-            scores.Add(Column[0]);
-            scores.Add(Column[1]);
-            scores.Add(Column[2]);
-            List<Selection>.Enumerator enumScores = scores.GetEnumerator();
+            List<Selection>.Enumerator enumScores = Selections.GetEnumerator();
             while (enumScores.MoveNext()) {
                 PrepareSelection(enumScores.Current);
             }
-            double highscore = scores.Max(x => x.Result);
-            double count = scores.FindAll(x => x.Result.Equals(highscore)).Count;
-            List<Selection>.Enumerator enumHighscores = scores.FindAll(x => x.Result.Equals(highscore)).GetEnumerator();
+            double highscore = Selections.Max(x => x.Result);
+            List<Selection> highSelections = Selections.FindAll(x => x.Result.Equals(highscore));
+            int count = highSelections.Count;
+            List<Selection>.Enumerator enumHighscores = highSelections.GetEnumerator();
             while (count > 0 && enumHighscores.MoveNext())
             {
                 if (count <= 5) {
@@ -226,24 +217,136 @@ namespace MiniCactpot.Pages
         void GetHint() {
             Hint = new List<(int, int)>();
             if (AvailableNumbers.Count < 9 && AvailableNumbers.Count > 5) {
-                if (Grid[1, 1] == 0) Hint.Add((1, 1));
-                else {
-                    if (AvailableNumbers.Count > 6 && Grid[0, 0] == 0 && Grid[2, 2] == 0 && Grid[2, 0] == 0 && Grid[0, 2] == 0) {
+                //Never leave the center bare
+                if (Grid[1, 1] == 0) 
+                    Hint.Add((1, 1));
+                else if (AvailableNumbers.Count > 6) {
+                    // if all the corners are clear, the second choice should be a corner
+                    if (Grid[0, 0] == 0 && Grid[2, 2] == 0 && Grid[2, 0] == 0 && Grid[0, 2] == 0) {
+                        // Hint at corners with no adjacent tile revealed
                         if (Grid[1, 0] == 0 && Grid[0, 1] == 0) Hint.Add((0, 0)); // top left
                         if (Grid[1, 0] == 0 && Grid[2, 1] == 0) Hint.Add((2, 0)); // top right
                         if (Grid[1, 2] == 0 && Grid[0, 1] == 0) Hint.Add((0, 2)); // bottom left
                         if (Grid[1, 2] == 0 && Grid[2, 1] == 0) Hint.Add((2, 2)); // bottom right
                     }
-                    else if (AvailableNumbers.Count > 6 && Grid[1, 0] == 0 && Grid[1, 2] == 0 && Grid[0, 1] == 0 && Grid[2, 1] == 0)
+                    // if a corner was revealed, the second choice should be a middle
+                    else if (Grid[1, 0] == 0 && Grid[1, 2] == 0 && Grid[0, 1] == 0 && Grid[2, 1] == 0)
                     {
+                        // Hint at middles with no adjacent corner revealed
                         if (Grid[0, 0] == 0 && Grid[2, 0] == 0) Hint.Add((1, 0)); // top
                         if (Grid[0, 2] == 0 && Grid[2, 2] == 0) Hint.Add((1, 2)); // bottom
                         if (Grid[0, 0] == 0 && Grid[0, 2] == 0) Hint.Add((0, 1)); // left
                         if (Grid[2, 0] == 0 && Grid[2, 2] == 0) Hint.Add((2, 1)); // right
                     }
-                    if (AvailableNumbers.Count == 6)
+                }
+                else
+                {
+                    // If there is one clear best selection, with two reveals, reveal the third tile
+                    double highscore = Selections.Max(x => x.Result);
+                    List<Selection> highSelectionsWithOneMissing = Selections.FindAll(x => x.Result.Equals(highscore) && x.RevealCount == 2);
+                    if (highSelectionsWithOneMissing.Count == 1)
                     {
-                        // What is the best here
+                        Selection selection = highSelectionsWithOneMissing.FirstOrDefault<Selection>();
+                        if (selection.First == 0) Hint.Add(selection.FirstCoords);
+                        if (selection.Second == 0) Hint.Add(selection.SecondCoords);
+                        if (selection.Third == 0) Hint.Add(selection.ThirdCoords);
+                    }
+                    else
+                    {
+                        // If there is an intersection of two non-revealed selections, hint at the intersections
+                        List<Selection> emptySelections = Selections.FindAll(x => x.RevealCount == 0);
+                        if (emptySelections.Contains(GetSelection("Column", 0)) && emptySelections.Contains(GetSelection("Row", 0)))
+                            Hint.Add((0, 0));
+                        if (emptySelections.Contains(GetSelection("Column", 2)) && emptySelections.Contains(GetSelection("Row", 0)))
+                            Hint.Add((2, 0));
+                        if (emptySelections.Contains(GetSelection("Column", 0)) && emptySelections.Contains(GetSelection("Row", 2)))
+                            Hint.Add((0, 2));
+                        if (emptySelections.Contains(GetSelection("Column", 2)) && emptySelections.Contains(GetSelection("Row", 2)))
+                            Hint.Add((2, 2));
+                        // If there is an intersection between an non-revealed selection and a selection with a high score, hint at it
+                        if (Hint.Count == 0) 
+                        {
+                            List<Selection> highSelections = Selections.FindAll(x => x.Result.Equals(highscore) && x.RevealCount < 3);
+                            if (emptySelections.Contains(GetSelection("Column", 0)) && highSelections.Contains(GetSelection("Row", 0)))
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && highSelections.Contains(GetSelection("Row", 1)))
+                                Hint.Add((0, 1));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && highSelections.Contains(GetSelection("Row", 2)))
+                                Hint.Add((0, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && highSelections.Contains(GetSelection("Diagonal", 0)))
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && highSelections.Contains(GetSelection("Diagonal", 1)))
+                                Hint.Add((0, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 1)) && highSelections.Contains(GetSelection("Row", 0)))
+                                Hint.Add((1, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 1)) && highSelections.Contains(GetSelection("Row", 1)))
+                                Hint.Add((1, 1));
+                            else if (emptySelections.Contains(GetSelection("Column", 1)) && highSelections.Contains(GetSelection("Row", 2)))
+                                Hint.Add((1, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && highSelections.Contains(GetSelection("Row", 0)))
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && highSelections.Contains(GetSelection("Row", 1)))
+                                Hint.Add((2, 1));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && highSelections.Contains(GetSelection("Row", 2)))
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && highSelections.Contains(GetSelection("Diagonal", 0)))
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && highSelections.Contains(GetSelection("Diagonal", 1)))
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && highSelections.Contains(GetSelection("Column", 0)))
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && highSelections.Contains(GetSelection("Column", 1)))
+                                Hint.Add((1, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && highSelections.Contains(GetSelection("Column", 2)))
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && highSelections.Contains(GetSelection("Diagonal", 0)))
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && highSelections.Contains(GetSelection("Diagonal", 1)))
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 1)) && highSelections.Contains(GetSelection("Column", 0)))
+                                Hint.Add((0, 1));
+                            else if (emptySelections.Contains(GetSelection("Row", 1)) && highSelections.Contains(GetSelection("Column", 1)))
+                                Hint.Add((1, 1));
+                            else if (emptySelections.Contains(GetSelection("Row", 1)) && highSelections.Contains(GetSelection("Column", 2)))
+                                Hint.Add((2, 1));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && highSelections.Contains(GetSelection("Column", 0)))
+                                Hint.Add((0, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && highSelections.Contains(GetSelection("Column", 1)))
+                                Hint.Add((1, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && highSelections.Contains(GetSelection("Column", 2)))
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && highSelections.Contains(GetSelection("Diagonal", 0)))
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && highSelections.Contains(GetSelection("Diagonal", 1)))
+                                Hint.Add((0, 2));
+                        }
+                        if (Hint.Count == 0)
+                        {
+                            if (emptySelections.Contains(GetSelection("Row", 0)) && GetSelection("Diagonal", 0).RevealCount == 1)
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && GetSelection("Diagonal", 1).RevealCount == 1)
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 0)) && GetSelection("Diagonal", 0).RevealCount == 2 && GetSelection("Diagonal", 1).RevealCount == 2)
+                                Hint.Add((1, 0));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && GetSelection("Diagonal", 0).RevealCount == 1)
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && GetSelection("Diagonal", 1).RevealCount == 1)
+                                Hint.Add((0, 2));
+                            else if (emptySelections.Contains(GetSelection("Row", 2)) && GetSelection("Diagonal", 0).RevealCount == 2 && GetSelection("Diagonal", 1).RevealCount == 2)
+                                Hint.Add((1, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && GetSelection("Diagonal", 0).RevealCount == 1)
+                                Hint.Add((0, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && GetSelection("Diagonal", 1).RevealCount == 1)
+                                Hint.Add((0, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 0)) && GetSelection("Diagonal", 0).RevealCount == 2 && GetSelection("Diagonal", 1).RevealCount == 2)
+                                Hint.Add((0, 1));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && GetSelection("Diagonal", 0).RevealCount == 1)
+                                Hint.Add((2, 2));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && GetSelection("Diagonal", 1).RevealCount == 1)
+                                Hint.Add((2, 0));
+                            else if (emptySelections.Contains(GetSelection("Column", 2)) && GetSelection("Diagonal", 0).RevealCount == 2 && GetSelection("Diagonal", 1).RevealCount == 2)
+                                Hint.Add((2, 1));
+                        }
                     }
                 }
             }
@@ -253,6 +356,7 @@ namespace MiniCactpot.Pages
         {
             public InputGrid InputGrid;
             public readonly string Name;
+            public readonly int Location;
             public double Result;
             public bool Active;
             public bool Suggested;
@@ -286,24 +390,33 @@ namespace MiniCactpot.Pages
                 get { return InputGrid.GridStatus[ThirdCoords.Item1, ThirdCoords.Item2]; }
                 set { InputGrid.GridStatus[ThirdCoords.Item1, ThirdCoords.Item2] = value; }
             }
-
-            public Selection (InputGrid inputGrid, (int, int) first, (int, int) second, (int, int) third, string name) 
+            public int RevealCount
+            {
+                get
+                {
+                    int count = 0;
+                    if (First != 0) count++;
+                    if (Second != 0) count++;
+                    if (Third != 0) count++;
+                    return count;
+                }
+            }
+            public Selection (InputGrid inputGrid, string name, int location, (int, int) first, (int, int) second, (int, int) third) 
             {
                 InputGrid = inputGrid;
-                ResetOrInitialize();
+                Name = name;
+                Location = location;
                 FirstCoords = first;
                 SecondCoords = second;
                 ThirdCoords = third;
-                Name = name;
+                ResetOrInitialize();
             }
-
             public void ResetOrInitialize()
             {
                 Result = 0.00;
                 Active = false;
                 Suggested = false;
             }
-
             public void ResetStatus() {
                 FirstStatus = InputGrid.NORMAL;
                 SecondStatus = InputGrid.NORMAL;
@@ -318,7 +431,7 @@ namespace MiniCactpot.Pages
                 SecondStatus |= status;
                 ThirdStatus |= status;
             }
-            public int GetStatus(int x = -1, int y = -1)
+            public int GetStatus()
             {
                 int status = InputGrid.NORMAL;
                 if (Suggested) status += InputGrid.SUGGESTED;
